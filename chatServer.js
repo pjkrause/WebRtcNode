@@ -1,10 +1,9 @@
 // file chatServer.js
 // Serving static pages using node-static
 
-// fetch the node-static, http and util modules
+// fetch the node-static and http modules
 var static = require('node-static');
 var http = require('http');
-var util = require('util');
 
 var port = 8080;
 
@@ -30,15 +29,32 @@ var io = require('socket.io').listen(app);
 
 // Now manage the connections
 io.sockets.on('connection', function (socket) {
-  socket.emit('news', { hello: 'world' });
 
-  socket.on('my other event', function (data) {
-    console.log(data);
+  // Handle "message" message :)
+  socket.on('message', function (message) {
+    console.log('Got message' + message);
+    socket.broadcast.to(message.channel).emit('message', message.message);
   });
 
   // Handle "create or join" message
   socket.on('create or join', function (channel) {
-    socket.join(channel);
-    socket.emit('created', channel);
+    var numClients = io.sockets.clients(channel).length;
+    console.log('numclients = ' + numClients);
+
+    // First client joining
+    if (numClients == 0) {
+      socket.join(channel);
+      socket.emit('created', channel);
+    } else if (numClients == 1) {
+      // second client joining so inform initiator
+      io.sockets.in(channel).emit('remotePeerJoining', channel);
+      // and let the new peer join channel
+      socket.join(channel);
+      socket.broadcast.to(channel).emit('broadcast: joined', 
+        'client ' + socket.id + ' joined channel ' + channel);
+    } else { // channel is full
+      console.log("Channel full!");
+      socket.emit('full', channel);
+    } 
   });
 });
