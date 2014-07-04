@@ -22,4 +22,8 @@ build/Release
 # Dependency directory
 # Deployed apps should consider commenting this line out:
 # see https://npmjs.org/doc/faq.html#Should-I-check-my-node_modules-folder-into-git
+<<<<<<< HEAD
 node_modules
+=======
+node_modules
+>>>>>>> f891f80dd404ec33e2610a350e9a251745b7d64c
