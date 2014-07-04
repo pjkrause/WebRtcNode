@@ -1,0 +1,53 @@
+#rtcApplication {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto 1fr auto auto;
+}
+
+header {
+  text-align: center;
+  padding: .5em;
+  grid-column: 1 / span 2;
+  grid-row: 1;
+}
+
+
+#localVideo {
+  text-align: center;
+  padding: 0.1em;
+  border: 1px solid;
+  grid-column: 1;
+  grid-row: 2;
+}
+
+#remoteVideo {
+  text-align: center;
+  padding: 0.1em;
+  border: 1px solid;
+  grid-column: 2;
+  grid-row: 2;
+}
+
+#dataChannelSend {
+  grid-column: 1;
+  grid-row: 3;
+}
+
+#dataChannelReceive {
+  grid-column: 2;
+  grid-row: 3;
+}
+
+#sendButton {
+  grid-column: 1;
+  grid-row: 4;
+}
+
+#localVideoStream {
+  width: 100%;
+}
+
+#remoteVideoStream {
+  width: 100%;
+}
