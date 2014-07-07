@@ -1,0 +1,27 @@
+{
+  "name": "RTCServer",
+  "version": "0.0.1",
+  "description": "Simple demo of WebRTC",
+  "main": "RTCServer.js",
+  "dependencies": {
+    "node-static": "~0.7.3",
+    "socket.io": "~0.9.17",
+    "http": "0.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pjkrause/WebRtcNode.git"
+  },
+  "keywords": [
+    "WebRTC"
+  ],
+  "author": "Paul Krause after Salvatore Loreto and Simon Pietro Romano",
+  "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/pjkrause/WebRtcNode/issues"
+  }
+}
