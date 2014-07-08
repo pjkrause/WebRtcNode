@@ -27,7 +27,7 @@ var app = http.createServer(function(request, response) {
       console.log(request.url + ' - ' + result.message);
     }
   });
-}).listen(port);
+}).listen(process.env.PORT || port);
 
 console.log('node-static running at http://localhost:%d', port)
 
