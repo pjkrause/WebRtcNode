@@ -57,7 +57,8 @@ var sdpConstraints = {};
 var room = prompt('Enter room name:'); 
 // Connect to signaling server
 // var socket = io.connect("http://localhost:8080");
-var socket = io.connect("http://obscure-sea-7207.herokuapp.com");
+var to_source = location.origin;
+var socket = io.connect(to_source);
 
 // Send 'Create or join' message to singnaling server
 if (room !== '') {
