@@ -56,7 +56,7 @@ var sdpConstraints = {};
 // Let's get started: prompt user for input (room name)
 var room = prompt('Enter room name:'); 
 // Connect to signaling server
-// var socket = io.connect("http://localhost:8080
+// var socket = io.connect("http://localhost:8080");
 var to_source = location.origin;
 var socket = io.connect(to_source);
 
@@ -132,15 +132,10 @@ socket.on('log', function (array) {
 socket.on('message', function (message) { 
   console.log('Received message:', message); 
   if (message === 'got user media') {
-    checkAndStart();
-  } else if (message.type === 'offer') {
-    if (!isInitiator && !isStarted) { 
-      checkAndStart();
-    }
-    pc.setRemoteDescription(new RTCSessionDescription(message)); 
-    doAnswer();
+    ...;
   } else if (message.type === 'answer' && isStarted) { 
     pc.setRemoteDescription(new RTCSessionDescription(message));
+
   } else if (message.type === 'candidate' && isStarted) {
     var candidate = new RTCIceCandidate({sdpMLineIndex:message.label,
       candidate:message.candidate});
@@ -169,21 +164,8 @@ function checkAndStart() {
 
 // PeerConnection management...
 function createPeerConnection() { 
-  try {
-    pc = new RTCPeerConnection(pc_config, pc_constraints); 
-    pc.addStream(localStream);
-    pc.onicecandidate = handleIceCandidate;
-    console.log('Created RTCPeerConnnection with:\n' +
-      '  config: \'' + JSON.stringify(pc_config) + '\';\n' +
-      ' constraints: \'' + JSON.stringify(pc_constraints) + '\'.'); 
-  } catch (e) {
-    console.log('Failed to create PeerConnection, exception: ' + e.message);
-    alert('Cannot create RTCPeerConnection object.');
-    return; 
-  }
-
-  pc.onaddstream = handleRemoteStreamAdded;
-  pc.onremovestream = handleRemoteStreamRemoved;
+  ...
+  ...
 
   if (isInitiator) { 
     try {
