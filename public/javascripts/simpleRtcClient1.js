@@ -16,15 +16,10 @@ navigator.getUserMedia = navigator.getUserMedia ||      // Opera
 window.onbeforeunload = function(e) {
   hangup(); 
 }
-// Data channel information
-var sendChannel, receiveChannel;
-var sendButton = document.getElementById("sendButton");
-var sendTextarea = document.getElementById("dataChannelSend");
-var receiveTextarea = document.getElementById("dataChannelReceive");
 
 // HTML5 <video> elements
-var localVideo = document.querySelector('#localVideoStream'); 
-var remoteVideo = document.querySelector('#remoteVideoStream');
+var localVideo = $('#localVideoStream'); 
+var remoteVideo = $('#remoteVideoStream');
 
 // Handler associated with Send button
 // sendButton.onclick = sendData;
@@ -39,19 +34,6 @@ var isStarted = false;
 var localStream;
 var remoteStream;
 
-// PeerConnection
-var pc;
-// PeerConnection ICE protocol configuration (either Firefox or Chrome)
-var pc_config = webrtcDetectedBrowser === 'firefox' ? 
-  {'iceServers':[{'url':'stun:23.21.150.121'}]} : // IP address 
-  {'iceServers': [{'url': 'stun:stun.l.google.com:19302'}]};
-
-var pc_constraints = { 
-  'optional': [
-    {'DtlsSrtpKeyAgreement': true} 
-  ]};
-
-var sdpConstraints = {};
 
 // Let's get started: prompt user for input (room name)
 var room = prompt('Enter room name:'); 
@@ -100,5 +82,18 @@ socket.on('created', function (room) {
 socket.on('log', function (array) { 
   console.log.apply(console, array);
 });
+
+// Attach a media stream to an element.
+function attachMediaStream(element, stream) {
+  if (typeof element.srcObject !== 'undefined') {
+    element.srcObject = stream;
+  } else if (typeof element.mozSrcObject !== 'undefined') {
+    element.mozSrcObject = stream;
+  } else if (typeof element.src !== 'undefined') {
+    element.src = URL.createObjectURL(stream);
+  } else {
+    console.log('Error attaching stream to element.');
+  }
+};
 
 
